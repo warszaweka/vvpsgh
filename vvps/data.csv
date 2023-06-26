@@ -1,0 +1,8 @@
+commands,expected_tasks
+"add,Task 1;add,Task 2;complete,Task 1","Task 1,True;Task 2,False"
+"add,Task 3;add,Task 4;delete,Task 3","Task 4,False"
+"add,Task 5;add,Task 6;complete,Task 5;delete,Task 6","Task 5,True"
+"add,Task 7;add,Task 8;delete,Task 7;complete,Task 8","Task 8,True"
+"add,Task 9;complete,Task 9;add,Task 10;delete,Task 10","Task 9,True"
+"add,Task 11;add,Task 12;delete,Task 11;complete,Task 12","Task 12,True"
+"add,Task 13;complete,Task 13;add,Task 14;complete,Task 14","Task 13,True;Task 14,True"

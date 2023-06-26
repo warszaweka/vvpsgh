@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+    <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
+    <script src="//code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="task" placeholder="Enter a task" required id="add-input">
+        <button type="submit">Add</button>
+    </form>
+    <ul>
+        {% for item in tasks %}
+            <li {% if item.completed %}class="completed"{% endif %}>
+                <span>{{ item.task }}</span>
+                <form action="/delete" method="POST" style="display: inline;">
+                    <input type="hidden" name="task" value="{{ item.task }}">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+                {% if not item.completed %}
+                <form action="/complete" method="POST" style="display: inline;">
+                    <input type="hidden" name="task" value="{{ item.task }}">
+                    <button type="submit" class="complete-button">Complete</button>
+                </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <script>
+        const socket = io();
+        socket.on('update', function(data) {
+            location.reload();
+        });
+    </script>
+</body>
+</html>
